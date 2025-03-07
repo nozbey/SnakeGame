@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Çok Oyunculu Yılan Oyunu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="login-screen">
+        <div class="login-container">
+            <h1>Çok Oyunculu Yılan Oyunu</h1>
+            <div class="form-group">
+                <label for="playerName">Kullanıcı Adı:</label>
+                <input type="text" id="playerName" placeholder="Adınızı girin">
+            </div>
+            <button id="startGame">Oyuna Katıl</button>
+        </div>
+    </div>
+
+    <div id="game-container" style="display: none;">
+        <div id="game-info">
+            <h2>Yılan Oyunu</h2>
+            <div id="score-container">
+                <h3>Skor Tablosu</h3>
+                <div id="scoreboard"></div>
+            </div>
+            <div id="game-message"></div>
+            <div class="controls-info">
+                <p>Kontroller: Ok tuşları veya WASD</p>
+                <p>Aynı yön tuşuna basınca hızlanırsınız!</p>
+            </div>
+        </div>
+        <div class="main-game-area">
+            <canvas id="game-canvas"></canvas>
+            <div id="ad-container">
+                <div class="ad-label">Reklam Alanı</div>
+                <div id="ad-content">
+                    <div class="demo-ad">
+                        <div class="ad-title">Oyunumuzu destekleyen sponsorlar</div>
+                        <div class="ad-description">Burada reklam içeriği görünecek</div>
+                        <button class="ad-button">Daha Fazla</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-over-screen" style="display: none;">
+        <div class="game-over-container">
+            <h2>Oyun Bitti!</h2>
+            <p id="final-score">Skorunuz: <span id="score-value">0</span></p>
+            <p id="restart-message">Otomatik olarak yeniden bağlanılıyor...</p>
+        </div>
+    </div>
+
+    <div id="winner-screen" style="display: none;">
+        <div class="winner-container">
+            <h2 id="winner-message"></h2>
+            <p>Oyun 10 saniye sonra yeniden başlayacak...</p>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
