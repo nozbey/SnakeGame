@@ -2,6 +2,11 @@
 
 This project is a collection of **Snake Game** versions created by **DeepSeek**, **ChatGPT**, and **Claude 3.7**. Each version was developed using the same initial prompt and runs on a Node.js-based Express server. The project can be easily deployed on the **Render** platform using **Docker**. 🚀
 
+## 🌐 Deployed Versions
+- 🕹️ **DeepSeek Version:** [Play Now](https://snakegame-jt12.onrender.com)
+- 🕹️ **ChatGPT Version:** [Play Now](https://snakegame-chatgpt.onrender.com)
+- 🕹️ **Claude Version:** [Play Now](https://snakegame-claude.onrender.com)
+
 🎮 **Gameplay: Claude**
 ![Claude Gameplay](https://raw.githubusercontent.com/nozbey/SnakeGame/refs/heads/main/images/claude.gif)
 
