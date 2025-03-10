@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Çoklu Yılan Oyunu</title>
+    <style>
+        body {
+            margin: 0;
+            background: #2c3e50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            font-family: Arial;
+        }
+
+        #game {
+            border: 3px solid #34495e;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        #login {
+            margin: 20px;
+            text-align: center;
+        }
+
+        input,
+        button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+        }
+
+        button {
+            background: #27ae60;
+            color: white;
+            cursor: pointer;
+        }
+
+        .game-over {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Çok Oyuncu Yılan Oyunu</h1>
+    <div id="login">
+        <input type="text" id="username" placeholder="Kullanıcı adın">
+        <button onclick="connect()">Oyuna Bağlan</button>
+    </div>
+    <canvas id="game" width="800" height="800"></canvas>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const canvas = document.getElementById('game');
+        const ctx = canvas.getContext('2d');
+        let socket, color, username;
+        const FOOD_TYPES = {
+            NORMAL: { color: '#f1c40f' },
+            RED: { color: '#e74c3c' },
+            BLUE: { color: '#3498db' },
+            PURPLE: { color: '#9b59b6' },
+        };
+        function connect() {
+            username = document.getElementById('username').value.trim();
+            if (!username) return;
+
+            document.getElementById('login').style.display = 'none';
+            socket = io();
+
+            socket.on('connect', () => socket.emit('join', username));
+            socket.on('color', c => color = c);
+            socket.on('update', draw);
+            socket.on('game-over', () => {
+                const existingOverlay = document.querySelector('.game-over');
+                if (!existingOverlay) {
+                    const overlay = document.createElement('div');
+                    overlay.className = 'game-over';
+                    overlay.innerHTML = `
+                    <h2>OYUN BİTTİ! 3 saniye içinde yeniden bağlanıyor...</h2>
+                  `;
+                    document.body.appendChild(overlay);
+
+                    setTimeout(() => {
+                        overlay.remove();
+                        socket.emit('join', username);
+                    }, 3000);
+                }
+            });
+        }
+
+        function draw(state) {
+            ctx.fillStyle = '#34495e';
+            ctx.fillRect(0, 0, 800, 800);
+
+            // Yemleri çiz
+            //ctx.fillStyle = '#f1c40f';
+            //state.foods.forEach(f => ctx.fillRect(f.x+2, f.y+2, 16, 16));    
+            state.foods.forEach(f => {
+                ctx.fillStyle = FOOD_TYPES[f.type].color; // Renkleri türe göre ayarla
+                ctx.fillRect(f.x + 2, f.y + 2, 16, 16);
+            });
+
+
+            // Yılanları çiz
+            state.snakes.forEach(s => {
+                ctx.fillStyle = s.color;
+                s.body.forEach((b, i) => {
+                    ctx.fillRect(b.x + 2, b.y + 2, 16, 16);
+                    if (i === 0) {
+                        ctx.fillStyle = 'white';
+                        ctx.font = '12px Arial';
+                        ctx.fillText(s.username, b.x + 5, b.y - 5);
+                    }
+                });
+            });
+        }
+
+        document.addEventListener('keydown', e => {
+            const dir = { 37: 'left', 38: 'up', 39: 'right', 40: 'down' }[e.keyCode];
+            if (dir) socket.emit('move', dir);
+        });
+    </script>
+</body>
+
+</html>

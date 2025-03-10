@@ -1,0 +1,14 @@
+version: '3'
+services:
+  deepseek:
+    build: ./deepseek-version
+    ports:
+      - "8001:8000"
+  chatgpt:
+    build: ./chatgpt-version
+    ports:
+      - "8002:8000"
+  claude:
+    build: ./claude-version
+    ports:
+      - "8003:8000"
