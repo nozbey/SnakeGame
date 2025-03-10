@@ -2,6 +2,18 @@
 
 Bu proje, **DeepSeek**, **ChatGPT** ve **Claude 3.7** tarafından oluşturulan üç farklı versiyonu içeren bir **Yılan Oyunu (Snake Game)** koleksiyonudur. Her versiyon, aynı başlangıç istemi (prompt) kullanılarak geliştirilmiş olup, Node.js tabanlı bir Express sunucusu üzerinde çalışmaktadır. Proje, **Docker** ile kapsüllenerek **Render** platformunda kolayca dağıtılabilir. 🚀
 
+🎮 **Gameplay: Claude**
+![Claude Gameplay](https://raw.githubusercontent.com/nozbey/SnakeGame/refs/heads/main/images/claude.gif)
+
+
+🎮 **Gameplay: ChatGPT**
+![ChatGPT Gameplay](https://raw.githubusercontent.com/nozbey/SnakeGame/refs/heads/main/images/chatgpt.gif)
+
+
+🎮 **Gameplay: DeepSeek**
+![DeepSeek Gameplay](https://raw.githubusercontent.com/nozbey/SnakeGame/refs/heads/main/images/deepseek.gif)
+
+
 ## 📑 İçindekiler
 - [Oyun Mekaniği](#-oyun-mekaniği)
 - [Dizin Yapısı](#-dizin-yapısı)
